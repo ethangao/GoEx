@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	. "github.com/nntaoli-project/GoEx"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	. "github.com/ethangao/GoEx"
 )
 
 type Bitfinex struct {
@@ -170,7 +171,7 @@ func (bfx *Bitfinex) placeOrder(orderType, side, amount, price string, pair Curr
 
 	order := new(Order)
 	order.Currency = pair
-	order.OrderID = ToInt(respmap["id"])
+	order.OrderID = ToUint64(respmap["id"])
 	order.Amount = ToFloat64(amount)
 	order.Price = ToFloat64(price)
 	order.AvgPrice = ToFloat64(respmap["avg_execution_price"])
@@ -224,7 +225,7 @@ func (bfx *Bitfinex) CancelOrder(orderId string, currencyPair CurrencyPair) (boo
 func (bfx *Bitfinex) toOrder(respmap map[string]interface{}) *Order {
 	order := new(Order)
 	order.Currency = bfx.symbolToCurrencyPair(respmap["symbol"].(string))
-	order.OrderID = ToInt(respmap["id"])
+	order.OrderID = ToUint64(respmap["id"])
 	order.Amount = ToFloat64(respmap["original_amount"])
 	order.Price = ToFloat64(respmap["price"])
 	order.DealAmount = ToFloat64(respmap["executed_amount"])

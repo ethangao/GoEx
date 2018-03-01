@@ -9,7 +9,7 @@ type Order struct {
 	DealAmount,
 	Fee float64
 	OrderID2  string
-	OrderID   int
+	OrderID   uint64
 	OrderTime int
 	Status    TradeStatus
 	Currency  CurrencyPair

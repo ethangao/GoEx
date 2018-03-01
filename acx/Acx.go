@@ -2,7 +2,7 @@ package acx
 
 import (
 	"fmt"
-	. "github.com/nntaoli-project/GoEx"
+	. "github.com/ethangao/GoEx"
 	"net/http"
 	"strings"
 )

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	. "github.com/nntaoli-project/GoEx"
+	. "github.com/ethangao/GoEx"
 	"net/http"
 	"net/url"
 	"strings"
@@ -152,7 +152,7 @@ func (hbV2 *HuoBi_V2) LimitBuy(amount, price string, currency CurrencyPair) (*Or
 	}
 	return &Order{
 		Currency: currency,
-		OrderID:  ToInt(orderId),
+		OrderID:  ToUint64(orderId),
 		Amount:   ToFloat64(amount),
 		Price:    ToFloat64(price),
 		Side:     BUY}, nil
@@ -165,7 +165,7 @@ func (hbV2 *HuoBi_V2) LimitSell(amount, price string, currency CurrencyPair) (*O
 	}
 	return &Order{
 		Currency: currency,
-		OrderID:  ToInt(orderId),
+		OrderID:  ToUint64(orderId),
 		Amount:   ToFloat64(amount),
 		Price:    ToFloat64(price),
 		Side:     SELL}, nil
@@ -178,7 +178,7 @@ func (hbV2 *HuoBi_V2) MarketBuy(amount, price string, currency CurrencyPair) (*O
 	}
 	return &Order{
 		Currency: currency,
-		OrderID:  ToInt(orderId),
+		OrderID:  ToUint64(orderId),
 		Amount:   ToFloat64(amount),
 		Price:    ToFloat64(price),
 		Side:     BUY_MARKET}, nil
@@ -191,7 +191,7 @@ func (hbV2 *HuoBi_V2) MarketSell(amount, price string, currency CurrencyPair) (*
 	}
 	return &Order{
 		Currency: currency,
-		OrderID:  ToInt(orderId),
+		OrderID:  ToUint64(orderId),
 		Amount:   ToFloat64(amount),
 		Price:    ToFloat64(price),
 		Side:     SELL_MARKET}, nil
@@ -199,7 +199,7 @@ func (hbV2 *HuoBi_V2) MarketSell(amount, price string, currency CurrencyPair) (*
 
 func (hbV2 *HuoBi_V2) parseOrder(ordmap map[string]interface{}) Order {
 	ord := Order{
-		OrderID:    ToInt(ordmap["id"]),
+		OrderID:    ToUint64(ordmap["id"]),
 		Amount:     ToFloat64(ordmap["amount"]),
 		Price:      ToFloat64(ordmap["price"]),
 		DealAmount: ToFloat64(ordmap["field-amount"]),

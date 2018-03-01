@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	. "github.com/nntaoli-project/GoEx"
+	. "github.com/ethangao/GoEx"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -255,7 +255,7 @@ func (hb *HuoBi) GetOneOrder(orderId string, currency CurrencyPair) (*Order, err
 	//fmt.Println(bodyDataMap);
 	order := new(Order)
 	order.Currency = currency
-	order.OrderID, _ = strconv.Atoi(orderId)
+	order.OrderID = ToUint64(orderId)
 	order.Side = TradeSide(bodyDataMap["type"].(float64))
 	order.Amount, _ = strconv.ParseFloat(bodyDataMap["order_amount"].(string), 64)
 	order.DealAmount, _ = strconv.ParseFloat(bodyDataMap["processed_amount"].(string), 64)
@@ -316,7 +316,7 @@ func (hb *HuoBi) GetUnfinishOrders(currency CurrencyPair) ([]Order, error) {
 		order.Price, _ = strconv.ParseFloat(v["order_price"].(string), 64)
 		order.DealAmount, _ = strconv.ParseFloat(v["processed_amount"].(string), 64)
 		order.OrderTime = int(v["order_time"].(float64))
-		order.OrderID = int(v["id"].(float64))
+		order.OrderID = uint64(v["id"].(float64))
 		order.Side = TradeSide(v["type"].(float64))
 		orders = append(orders, order)
 	}
@@ -370,7 +370,7 @@ func (hb *HuoBi) placeOrder(method, amount, price string, currency CurrencyPair)
 
 	if strings.Compare(ret, "success") == 0 {
 		order := new(Order)
-		order.OrderID = int(bodyDataMap["id"].(float64))
+		order.OrderID = uint64(bodyDataMap["id"].(float64))
 		order.Price, _ = strconv.ParseFloat(price, 64)
 		order.Amount, _ = strconv.ParseFloat(amount, 64)
 		order.Currency = currency

@@ -1,7 +1,7 @@
 package bigone
 
 import (
-	. "github.com/nntaoli-project/GoEx"
+	. "github.com/ethangao/GoEx"
 	"net/http"
 	"testing"
 )
